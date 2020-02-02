@@ -2,6 +2,8 @@ if exists('g:loaded_fzf_gs')
   finish
 endif
 
+let g:loaded_fzf_gs = 1
+
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
