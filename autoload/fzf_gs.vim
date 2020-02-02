@@ -57,6 +57,10 @@ function! s:buffer_exists()
   return len(filter(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val) != ""')) >= 1
 endfunction
 
+function! s:buffer_modified ()
+  return len(getbufinfo({'bufmodified': 1})) != 0
+endfunction
+
 " get branches
 function! s:branches () abort
 
