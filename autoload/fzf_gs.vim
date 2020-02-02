@@ -33,11 +33,13 @@ function! s:git_switch (branch) abort
     return
   endif
 
-  silent let l:result = system('git switch ' .. a:branch)
-  if v:shell_error != 0
+
+  if s:has_git_switch()
+    silent let l:result = system('git switch ' .. a:branch)
+  else
     silent let l:result = system('git checkout ' .. a:branch)
     if v:shell_error != 0
-      silent let l:result = system('git -b checkout ' .. a:branch)
+      silent let l:result = system('git checkout -b ' .. a:branch)
     endif
   endif
   if v:shell_error == 0
@@ -59,6 +61,12 @@ endfunction
 
 function! s:buffer_modified ()
   return len(getbufinfo({'bufmodified': 1})) != 0
+endfunction
+
+" check if git switch command exists
+function! s:has_git_switch() abort
+  call system('git switch --help > /dev/null 2>&1')
+  return v:shell_error == 0
 endfunction
 
 " get branches
