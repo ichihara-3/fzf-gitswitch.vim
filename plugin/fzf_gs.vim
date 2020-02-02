@@ -5,7 +5,7 @@ endif
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
-command! Branches -nargs=0 call fzf_gs#git_switch_with_fzf()
+command! -nargs=0 Branches call fzf_gs#git_switch_with_fzf()
 
 nmap <Plug>(fzf_gs) :<C-u>call fzf_gs#git_switch_with_fzf()<CR>
 
