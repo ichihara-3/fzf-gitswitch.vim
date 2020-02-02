@@ -14,7 +14,8 @@ Plug 'ichihara-3/fzf-gitswitch.vim'
 ### :Branches
 
 This command shows both remote and local branches in fzf window, and when selected, checkout it.
-Note that when local changes not commited exists, command may be failed.
+
+Note that when local changes are not commited, the command may be failed.
 
 ## Key mappings
 
