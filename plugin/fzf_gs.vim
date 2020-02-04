@@ -1,3 +1,8 @@
+" Vim global plugin for switching git branch with fzf
+" Last Change:	2020 Feb 04
+" Maintainer:	ichi_taro3 <taro3.ichi@gmail.com>
+" License:	This file is placed in the public domain.
+
 let s:save_cpo = &cpoptions
 set cpoptions&vim
 
