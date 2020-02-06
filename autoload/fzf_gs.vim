@@ -76,11 +76,14 @@ function! s:branches () abort
     throw "not in git repo"
   endif
 
-  let l:current = trim(system("git branch --points-at=HEAD --format='%(HEAD)%(refname:lstrip=2)'| sed -n '/^\*/p' | tr -d '*'"))
-  let l:remote = system('git branch -r |sed -e "/HEAD/d" -e "/->/d" -e "/' .. escape(l:current, '/') .. '/d"')
-  let l:local = system('git branch |sed -e "/\*/d" -e "/' .. escape(l:current, '/') .. '/d"')
+  let l:current = trim(substitute(
+        \  get(filter(split(system('git branch'), '\n'), {_, val -> match(val, '\*') != -1}), 0, '')
+        \  , '\s*\*\s*', '', ''))
+  echomsg l:current
+  let l:remote = filter(split(system('git branch -r'), '\n'), {_, val -> match(val, 'HEAD') != -1 || match(val, l:current) != -1})
+  let l:local = filter(split(system('git branch'), '\n'), {_, val -> match(val, '\*') != -1 || match(val, l:current) != -1})
 
-  return s:add_label(split(l:remote, '\n'), 'remote') + s:add_label(split(l:local, '\n'), 'local')
+  return s:add_label(l:remote, 'remote') + s:add_label(l:local, 'local')
 endfunction
 
 " add local / remote label
