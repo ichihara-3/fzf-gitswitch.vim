@@ -79,7 +79,6 @@ function! s:branches () abort
   let l:current = trim(substitute(
         \  get(filter(split(system('git branch'), '\n'), {_, val -> match(val, '\*') != -1}), 0, '')
         \  , '\s*\*\s*', '', ''))
-  echomsg l:current
   let l:remote = filter(split(system('git branch -r'), '\n'), {_, val -> match(val, 'HEAD') != -1 || match(val, l:current) != -1})
   let l:local = filter(split(system('git branch'), '\n'), {_, val -> match(val, '\*') != -1 || match(val, l:current) != -1})
 
