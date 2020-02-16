@@ -79,8 +79,8 @@ function! s:branches () abort
   let l:current = trim(substitute(
         \  get(filter(split(system('git branch'), '\n'), {_, val -> match(val, '\*') != -1}), 0, '')
         \  , '\s*\*\s*', '', ''))
-  let l:remote = filter(split(system('git branch -r'), '\n'), {_, val -> match(val, 'HEAD') == -1 || match(val, l:current) == -1})
-  let l:local = filter(split(system('git branch'), '\n'), {_, val -> match(val, '\*') == -1 || match(val, l:current) == -1})
+  let l:remote = filter(split(system('git branch -r'), '\n'), {_, val -> match(val, 'HEAD') == -1 && match(val, l:current) == -1})
+  let l:local = filter(split(system('git branch'), '\n'), {_, val -> match(val, '\*') == -1 && match(val, l:current) == -1})
 
   return s:add_label(l:remote, 'remote') + s:add_label(l:local, 'local')
 endfunction
